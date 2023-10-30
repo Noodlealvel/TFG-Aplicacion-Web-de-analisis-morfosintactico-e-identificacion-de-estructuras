@@ -54,7 +54,7 @@ ROOT_URLCONF = 'TFG.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [templates],
+        'DIRS': ["TFG/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
