@@ -27,25 +27,24 @@ def signup(request):
 
         messages.success(request, "Your account was created succesfully.")
 
-        return redirect ('login')
+        return redirect ('signin')
 
     return render (request, "cuentas/signup.html")
 
-def login(request):
+def signin(request):
     
     if request.method=="POST":
-        email = request.POST.get('email')
+        username = request.POST.get('username')
         passwd = request.POST.get('passwd')
 
-        user = authenticate(email=email, password=passwd)
+        user = authenticate(username=username, password=passwd)
 
         if user is not None:
             login(request, user)
-            username = user.get_username
-            return render (request, "cuentas/index.html", {'username': username})
+            return render (request, "cuentas/index.html", {'user': request.user})
         else:
             messages.error(request, "Invalid credentials.")
-            return redirect ("home")
+            return redirect ("signin")
 
     return render (request, "cuentas/login.html")
 
@@ -54,12 +53,10 @@ def verifyPassword(request):
     if request.method == 'POST':
         password = request.get('password')
         if request.user.check_password(password):
-            # Contraseña correcta, redirigir al formulario de modificación de datos
             return render(request, "cuentas/modifyParameters.html")
         else:
-            # Contraseña incorrecta, mostrar mensaje de error
-            msg = "Incorrect password."
-            return render(request, 'cuentas/verifyPassword.html', {'msg': msg})
+            messages.error(request, "Incorrect password.")
+            return render(request, 'cuentas/verifyPassword.html')
     else:
         return render(request, "cuentas/verifyPassword.html")
 

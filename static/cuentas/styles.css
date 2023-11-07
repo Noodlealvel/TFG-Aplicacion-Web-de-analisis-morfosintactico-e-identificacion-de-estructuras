@@ -1,0 +1,27 @@
+body{
+    background-color: #9db1bd !important;
+}
+
+h1 {
+  color: #c0c0c0;
+  font-family: verdana;
+  font-size: 300%;
+}
+
+.topright {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-size: 18px;
+}
+
+.encabezado{
+  height: 80px !important;
+}
+
+
+.contenido{
+  margin-top: 100px;
+  margin-bottom: 100px;
+  
+}
