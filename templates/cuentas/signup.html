@@ -24,6 +24,19 @@
           
             <form action="/signup" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
+              {% if messages %}
+              {% for message in messages %}
+              {% if message.tags == "success" %}
+              <div class="alert alert-success" role="alert">
+                  {{ message }}
+                </div>
+              {% elif message.tags == "error" %}
+              <div class="alert alert-danger" role="alert">
+                  {{ message }}
+                </div>
+              {% endif %}
+              {% endfor %}
+              {% endif %}
                 <h1 class="display-6 text-center">Create account</h1>
                 <div class="input-group p-2">
                     <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Username">
