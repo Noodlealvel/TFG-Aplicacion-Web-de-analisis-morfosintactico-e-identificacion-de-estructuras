@@ -13,37 +13,46 @@
 <body>
   <header>
     <div class="m-0 row justify-content-center">
-      <div class="col-auto p-5 text-center">
-          <h1 class="display-1"><strong>Modify parameters</strong></h1>
+        <div class="col-auto p-5 text-center">
+            <h1 class="display-1">Sentence analyzer</h1>
+        </div>
       </div>
-  </div>
   </header>
-  {% if messages %}
-  {% for message in messages %}
-  {% if message.tags == "success" %}
-  <div class="alert alert-success" role="alert">
-      {{ message }}
-    </div>
-  {% elif message.tags == "error" %}
-  <div class="alert alert-danger" role="alert">
-      {{ message }}
-    </div>
-  {% endif %}
-  {% endfor %}
-  {% endif %}
+
   {% if verified is None %}
-  <h2 class="display-1"><strong>As a security measure, please verify your password first.</strong></h1>
     <div class="m-0 row justify-content-center">
         <div class="col-auto p-5 text-center">
-            <form action="/modifyParameters" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="hidden" id="verify" name="verify" value="verify" />
-                <h2 class="display-6 text-center">Verify password</h2>
-                <div class="input-group mb-3">
-                    <input type="password" name="password" class="form-control" placeholder="password" aria-describedby="button-addon2">
-                    <button class="btn btn-primary " type="submit" id="button-addon2">Verify</button>
+            <div class="container-fluid">
+                <p>As a security measure, please verify your password first.</p>
+            </div>
+                <div class="container">
+                    <div class="row vh-80 justify-content-center align-items-center">
+                        <div class="col-auto bg-light p-5 rounded">
+                            {% if messages %}
+                            {% for message in messages %}
+                            {% if message.tags == "success" %}
+                            <div class="alert alert-success" role="alert">
+                                {{ message }}
+                              </div>
+                            {% elif message.tags == "error" %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ message }}
+                              </div>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            <form action="/modifyParameters" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="hidden" id="verify" name="verify" value="verify" />
+                                <h2 class="display-6 text-center">Verify password</h2>
+                                <div class="input-group mb-3">
+                                    <input type="password" name="password" class="form-control" placeholder="password" aria-describedby="button-addon2">
+                                    <button class="btn btn-primary " type="submit" id="button-addon2">Verify</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </form>
         </div>
     </div>
    {% else %}

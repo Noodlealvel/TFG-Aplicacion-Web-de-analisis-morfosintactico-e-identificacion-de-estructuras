@@ -1,5 +1,23 @@
+header{
+  justify-content: center;
+  display:flex;
+  align-items: center;
+  background-color: #ece5e5;
+  font-family: 'Oswald', sans-serif !important;
+  font-size: xx-large;
+  height:150px;
+}
+
 body{
     background-color: #9db1bd !important;
+}
+
+.container{
+  margin-top:40px;
+}
+
+.container-fluid{
+  font-size: xx-large;
 }
 
 h1 {
@@ -9,19 +27,10 @@ h1 {
 }
 
 .topright {
-  position: absolute;
+  position:absolute;
+  margin-top:150px;
+  float:right;
   top: 8px;
   right: 16px;
   font-size: 18px;
-}
-
-.encabezado{
-  height: 80px !important;
-}
-
-
-.contenido{
-  margin-top: 100px;
-  margin-bottom: 100px;
-  
 }

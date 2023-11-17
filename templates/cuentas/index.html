@@ -16,13 +16,10 @@
   <header>
     <div class="m-0 row justify-content-center">
       <div class="col-auto p-5 text-center">
-          <h1 class="display-1"><strong>TFG</strong></h1>
+          <h1 class="display-1">Sentence analyzer</h1>
       </div>
+    </div>
   </header>
-
-  {% with registrado=user.is_authenticated %}
-  <h2>{{ request.user.username }}</h2>
-  {% endwith %}
 
   {% if request.user.is_authenticated %}
   <div class="topright">
@@ -37,6 +34,14 @@
     </div>
   </div>
   {% endif %}
+
+  {% with registrado=user.is_authenticated %}
+  <div class="m-0 row justify-content-center">
+    <div class="col-auto p-5 text-center">
+      <h2>Usuario: {{ request.user.username }}</h2>
+    </div>
+   </div>
+  {% endwith %}
 
   <div class="container">
     <div class="row vh-80 justify-content-center align-items-center">
