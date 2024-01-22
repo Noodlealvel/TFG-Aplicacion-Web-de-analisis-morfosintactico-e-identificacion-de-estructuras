@@ -7,7 +7,12 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from nltk import pos_tag, word_tokenize
+from nltk.corpus import wordnet2021
+from nltk import CFG
+from nltk.ccg.chart import CCGChartParser
 # Create your views here.
+
 def home(request):
     return render (request, "cuentas/index.html")
 
@@ -58,7 +63,8 @@ def signin(request):
 
         if user is not None:
             login(request, user)
-            return render (request, "cuentas/index.html", {'user': request.user})
+            #return render (request, "cuentas/index.html", {'user': request.user})
+            return redirect("analyze")
         else:
             messages.error(request, "Invalid credentials.")
             return redirect ("signin")
@@ -115,6 +121,8 @@ def modifyParameters(request):
 
             user.save()
 
+            login(request, user)
+
             messages.success(request, "Your account's parameters were modified succesfully.")
 
             return redirect ('home')
@@ -125,3 +133,11 @@ def modifyParameters(request):
 def log_out(request):
     logout(request)
     return render(request, "cuentas/index.html")
+
+@login_required
+def analyze(request):
+    if request.method=='POST':
+        sentence=request.POST.get('sentence')
+
+    else:
+        return render(request, "cuentas/analyze.html", {'user': request.user})

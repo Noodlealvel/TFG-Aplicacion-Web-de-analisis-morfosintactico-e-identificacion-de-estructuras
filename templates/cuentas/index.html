@@ -33,15 +33,13 @@
       </ul>
     </div>
   </div>
-  {% endif %}
 
-  {% with registrado=user.is_authenticated %}
   <div class="m-0 row justify-content-center">
     <div class="col-auto p-5 text-center">
       <h2>Usuario: {{ request.user.username }}</h2>
     </div>
    </div>
-  {% endwith %}
+  {% endif %}
 
   <div class="container">
     <div class="row vh-80 justify-content-center align-items-center">
