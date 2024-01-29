@@ -37,12 +37,12 @@
     <div class="half-top">
         <form action="/analyze" method="POST">
           {% csrf_token %}
-            <div class="row auto">
+            <div class="row auto justify-content-center">
                 <div class="col md p-4">
                 <input type="textarea" name="sentence" rows="4" cols="50">
                 </div>
             </div>
-            <div class="row auto">
+            <div class="row auto justify-content-center">
             <div class="col md p-4 col md">
                 <button type="submit" class="btn btn-primary" name="analyze" value="boxes">Analyze (boxes)</button>
                 <button type="submit" class="btn btn-primary" name="analyze" value="lines">Analyze (lines)</button>
@@ -53,9 +53,26 @@
     
     
     <div class="half-bottom">
-      {% if result is not None %}
+      <div class="row auto justify-content-center">
+        <div class="col md p-4">
+      {% if doc is not None %}
+      <p style="word-spacing:5rem">
+      {% for token in doc %}
+      {{ token.pos_ }}
+      {% endfor %}
+      </p>
+
+        <h2 style="word-spacing:5rem">{{ sentence }}</h2>
+
+      <p style="word-spacing:5rem">
+      {% for token in doc %}
+      {{ token.dep_ }}
+      {% endfor %}
+      </p>
 
       {% endif %}
+        </div>
+      </div>
     </div>
 
 </div>

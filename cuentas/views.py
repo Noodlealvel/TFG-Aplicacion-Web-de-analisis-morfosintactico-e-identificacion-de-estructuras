@@ -7,12 +7,27 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from nltk import pos_tag, word_tokenize
-from nltk.corpus import wordnet2021
-from nltk import CFG
-from nltk.ccg.chart import CCGChartParser
+import benepar, spacy
+nlp = spacy.load("en_core_web_sm")
+if spacy.__version__.startswith('2'):
+    nlp.add_pipe(benepar.BeneparComponent("benepar_en3"))
+else:
+    nlp.add_pipe("benepar", config={"model": "benepar_en3"})
+from anytree import Node, RenderTree
+#from nltk import pos_tag, word_tokenize
+#from nltk.corpus import wordnet2021
+#from nltk import CFG
+#from nltk.ccg.chart import CCGChartParser
 # Create your views here.
 
+def build_anytree(node, parent=None):
+    if node._.labels=="()":
+        current_node = Node(node.text, parent=parent)
+    else:
+        current_node = Node(node._.labels, parent=parent)
+    for child in node._.children:
+        build_anytree(child, parent=current_node)
+        
 def home(request):
     return render (request, "cuentas/index.html")
 
@@ -137,7 +152,18 @@ def log_out(request):
 @login_required
 def analyze(request):
     if request.method=='POST':
-        sentence=request.POST.get('sentence')
-
+        sentence=request.POST.get('sentence') #spacy
+        doc = nlp(sentence)
+        sent = list(doc.sents)[0]
+        root = Node(sent._.labels)
+        build_anytree(sent, parent=root)
+        for pre, fill, node in RenderTree(root):
+            print("%s%s" % (pre, node.name))
+        #sent = list(doc.sents)[0]
+        #displacy.serve(doc, style="dep")
+        #for token in doc:
+         #   print(token.text, token.pos_, token.dep_)
+        print(sent._.parse_string)
+        return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence})
     else:
         return render(request, "cuentas/analyze.html", {'user': request.user})
