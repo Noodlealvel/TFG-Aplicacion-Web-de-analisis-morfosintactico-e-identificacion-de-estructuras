@@ -1,83 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analizar</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'cuentas/styles.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analizar</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'cuentas/styles.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous">
 </head>
+
 <body>
-    <!--La pagina estaria dividida en 2 verticalmente por una linea, arriba estaria el cuadro para introducir la frase
+  <!--La pagina estaria dividida en 2 verticalmente por una linea, arriba estaria el cuadro para introducir la frase
     y abajo saldría el resultado -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <header>
-      <div class="m-0 row justify-content-center">
-        <div class="col-auto p-5 text-center">
-            <h1 class="display-1">Sentence analyzer</h1>
-        </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <header>
+    <div class="m-0 row justify-content-center">
+      <div class="col-auto p-5 text-center">
+        <h1 class="display-1">Sentence analyzer</h1>
       </div>
-    </header>
-
-    <div class="topright">
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            My account
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/modifyParameters">Change parameters</a></li>
-            <li><a class="dropdown-item" href="/logout">Log out</a></li>
-          </ul>
-        </div>
     </div>
+  </header>
 
-<div class="container-fluid">
+  <div class="topright">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        My account
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="/modifyParameters">Change parameters</a></li>
+        <li><a class="dropdown-item" href="/logout">Log out</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container-fluid">
     <div class="half-top">
-        <form action="/analyze" method="POST">
-          {% csrf_token %}
-            <div class="row auto justify-content-center">
-                <div class="col md p-4">
-                <input type="textarea" name="sentence" rows="4" cols="50">
-                </div>
-            </div>
-            <div class="row auto justify-content-center">
-            <div class="col md p-4 col md">
-                <button type="submit" class="btn btn-primary" name="analyze" value="boxes">Analyze (boxes)</button>
-                <button type="submit" class="btn btn-primary" name="analyze" value="lines">Analyze (lines)</button>
-            </div>
-            </div>
-        </form>
+      <form action="/analyze" method="POST">
+        {% csrf_token %}
+        <div class="row-auto">
+          <div class="col-auto">
+            <textarea wrap="off" name="sentence" value="sentence"></textarea>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-auto col-auto">
+            <button type="submit" class="btn btn-primary" name="analyze" value="syntactic">Syntactic</button>
+            <button type="submit" class="btn btn-primary" name="analyze" value="morphologic">Morphologic</button>
+          </div>
+        </div>
+      </form>
     </div>
-    
-    
+
+    <div class="horizontal_line"></div>
+
     <div class="half-bottom">
       <div class="row auto justify-content-center">
         <div class="col md p-4">
-      {% if doc is not None %}
-      <p style="word-spacing:5rem">
-      {% for token in doc %}
-      {{ token.pos_ }}
-      {% endfor %}
-      </p>
+          {% if doc is not None %}
+          {% if method == "syntactic" %}
+          <p style="word-spacing:5rem">
+            {% for token in doc %}
+            {{ token.pos_ }}
+            {% endfor %}
+          </p>
 
-        <h2 style="word-spacing:5rem">{{ sentence }}</h2>
+          <h2 style="word-spacing:5rem">{{ sentence }}</h2>
 
-      <p style="word-spacing:5rem">
-      {% for token in doc %}
-      {{ token.dep_ }}
-      {% endfor %}
-      </p>
-
-      {% endif %}
+          <p style="word-spacing:5rem">
+            {% for token in doc %}
+            {{ token.dep_ }}
+            {% endfor %}
+          </p>
+          <p style="padding:2vh">{{ constituency }}</p>
+          {% elif method == "morphologic" %}
+          {% for token in doc %}
+          <p><b>{{ token.text }}:</b> {{ token.pos_ }}. {{ token.morph }}</p>
+          {% endfor %}
+          {% endif %}
+          {% endif %}
         </div>
       </div>
     </div>
 
-</div>
+  </div>
 
-    
-</div>
+
+  </div>
 </body>
+
 </html>

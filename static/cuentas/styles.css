@@ -34,3 +34,31 @@ h1 {
   right: 16px;
   font-size: 18px;
 }
+
+textarea {
+  resize: none !important;
+  width: 50vw;
+  height: 8vh;
+}
+
+.half-top {
+  display:flex;
+  align-items: center;
+  margin-top:10vh;
+  justify-content: center;
+}
+
+.half-bottom {
+  display:flex;
+  align-items: center;
+  margin-top:10vh;
+  justify-content: center;
+}
+
+.horizontal_line {
+  margin-top: 4vh;
+  width: 100%;
+  height: 2px;
+  border-top: 2px solid black;
+  line-height: 100%;
+}
