@@ -53,6 +53,7 @@ textarea {
   align-items: center;
   margin-top:10vh;
   justify-content: center;
+  text-align:center;
 }
 
 .horizontal_line {

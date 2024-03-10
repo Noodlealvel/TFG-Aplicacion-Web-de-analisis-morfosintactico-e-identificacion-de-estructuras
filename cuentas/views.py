@@ -1,4 +1,5 @@
 from re import A
+import os
 from turtle import end_fill
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
@@ -8,6 +9,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import benepar, spacy
+import constituent_treelib as ct
 #import constituent_treelib
 nlp = spacy.load("en_core_web_sm")
 if spacy.__version__.startswith('2'):
@@ -56,6 +58,10 @@ def signup(request):
         user.last_name=lastname
 
         user.save()
+
+        parent_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static/images/")
+        path = os.path.join(parent_dir, username)
+        os.mkdir(path)
 
         messages.success(request, "Your account was created succesfully.")
 
@@ -158,7 +164,11 @@ def analyze(request):
             #   print(token.text, token.pos_, token.dep_)
             constituency=sent._.parse_string
             print(constituency)
-            return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "syntactic", 'constituency':constituency})
+            tree=ct.ConstituentTree(sentence, nlp)
+            imagepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/images/' + request.user.get_username() + '/resultados.svg')
+            tree.export_tree(destination_filepath=imagepath, verbose=True)
+            resultspath= "/images/" + request.user.get_username() + "/resultados.svg"
+            return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "syntactic", 'constituency':constituency, 'resultspath': resultspath})
         else:
             morph=[]
             for token in doc:
