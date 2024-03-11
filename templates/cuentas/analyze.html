@@ -78,6 +78,18 @@
           </p>
           <!--<p style="padding:2vh">{{ constituency }}</p>-->
           <img src="{% static resultspath %}" width="1000px" height="1000px" style="display: block; margin-left:auto; margin-right:auto;">
+
+          <form action="/download" method="POST">
+            {% csrf_token %}
+            <select id="format" name="format">
+              <option value="pdf">Pdf</option>
+              <option value="txt">Txt</option>
+              <option value="xls">Xls</option>
+            </select>
+            <input type="hidden" name="method" value="syntactic">
+            <input type="hidden" name="sentence" value="{{ sentence }}">
+            <button type="submit" class="btn btn-secondary" name="download">Download results</button>
+          </form>
           {% elif method == "morphologic" %}
           {% for token in doc %}
           <p><b>{{ token.text }}:</b> {{ token.pos_ }}. {{ token.morph }}</p>

@@ -69,6 +69,8 @@ TEMPLATES = [
 
 STATIC_URL = "static/"
 
+WKHTMLTOPDF_PATH = 'tools/wkhtmltopdf/bin/wkhtmltopdf.exe'
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]

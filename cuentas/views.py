@@ -2,12 +2,13 @@ from re import A
 import os
 from turtle import end_fill
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
+from django.http import FileResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.conf import settings
 import benepar, spacy
 import constituent_treelib as ct
 #import constituent_treelib
@@ -178,3 +179,21 @@ def analyze(request):
             return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "morphologic", 'morph': morph})
     else:
         return render(request, "cuentas/analyze.html", {'user': request.user})
+
+@login_required
+def download(request):
+    if request.method=="POST":
+        if request.POST.get('method')=="syntactic":
+            sentence=request.POST.get('sentence')
+            format=request.POST.get('format')
+            tree=ct.ConstituentTree(sentence, nlp)
+            filepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/images/' + request.user.get_username() + '/resultados.'+ format)
+            if format=="pdf":
+                wkhtmltopdf=os.path.join(os.path.dirname(os.path.dirname(__file__)), settings.WKHTMLTOPDF_PATH)
+                print(wkhtmltopdf)
+                tree.export_tree(destination_filepath=filepath, wkhtmltopdf_bin_filepath=wkhtmltopdf, verbose=True)
+            else:
+                tree.export_tree(destination_filepath=filepath, verbose=True)
+            return FileResponse(open(filepath, 'rb'), as_attachment=True)
+
+

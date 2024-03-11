@@ -1,0 +1,11 @@
+                      S                        
+       _______________|_________                
+      |                         VP             
+      |                _________|___            
+      |               |             PP         
+      |               |     ________|___        
+      NP              |    |            NP     
+  ____|__________     |    |     _______|____   
+ DT   JJ    JJ   NN  VBZ   IN   DT      JJ   NN
+ |    |     |    |    |    |    |       |    |  
+The quick brown fox jumps over the     lazy dog
