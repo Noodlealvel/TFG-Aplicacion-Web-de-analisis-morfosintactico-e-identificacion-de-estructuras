@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.conf import settings
 import benepar, spacy
 import constituent_treelib as ct
-#import constituent_treelib
+from reportlab.pdfgen.canvas import Canvas
 nlp = spacy.load("en_core_web_sm")
 if spacy.__version__.startswith('2'):
     nlp.add_pipe(benepar.BeneparComponent("benepar_en3"))
@@ -60,7 +60,7 @@ def signup(request):
 
         user.save()
 
-        parent_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static/images/")
+        parent_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static/media/")
         path = os.path.join(parent_dir, username)
         os.mkdir(path)
 
@@ -166,9 +166,9 @@ def analyze(request):
             constituency=sent._.parse_string
             print(constituency)
             tree=ct.ConstituentTree(sentence, nlp)
-            imagepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/images/' + request.user.get_username() + '/resultados.svg')
+            imagepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + '/resultsSyntactic.svg')
             tree.export_tree(destination_filepath=imagepath, verbose=True)
-            resultspath= "/images/" + request.user.get_username() + "/resultados.svg"
+            resultspath= "/media/" + request.user.get_username() + "/resultsSyntactic.svg"
             return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "syntactic", 'constituency':constituency, 'resultspath': resultspath})
         else:
             morph=[]
@@ -183,17 +183,39 @@ def analyze(request):
 @login_required
 def download(request):
     if request.method=="POST":
+        sentence=request.POST.get('sentence')
+        format=request.POST.get('format')
         if request.POST.get('method')=="syntactic":
-            sentence=request.POST.get('sentence')
-            format=request.POST.get('format')
             tree=ct.ConstituentTree(sentence, nlp)
-            filepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/images/' + request.user.get_username() + '/resultados.'+ format)
+            filepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + '/resultsSyntactic.'+ format)
             if format=="pdf":
                 wkhtmltopdf=os.path.join(os.path.dirname(os.path.dirname(__file__)), settings.WKHTMLTOPDF_PATH)
-                print(wkhtmltopdf)
                 tree.export_tree(destination_filepath=filepath, wkhtmltopdf_bin_filepath=wkhtmltopdf, verbose=True)
             else:
                 tree.export_tree(destination_filepath=filepath, verbose=True)
             return FileResponse(open(filepath, 'rb'), as_attachment=True)
+        elif request.POST.get('method')=="morphologic":
+            doc = nlp(sentence)
+            results=""
+            for token in doc:
+                results+=token.text + ": " + token.pos_ + ". " + str(token.morph) + "\n"
+            filepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + '/resultsMorphologic.'+ format)
+            if format=="pdf":
+                #The quick brown fox jumps over the lazy dog
+                canvas = Canvas(filepath)
+                t = canvas.beginText()
+                t.setTextOrigin(50, 750)
+                t.setFont('Helvetica', 12)
+                t.textLines(results)
+                canvas.drawText(t)
+                canvas.save()
+            else:
+                f = open(filepath, "w")
+                f.write(results)
+                f.close()
+            return FileResponse(open(filepath, 'rb'), as_attachment=True)
+
+
+            
 
 

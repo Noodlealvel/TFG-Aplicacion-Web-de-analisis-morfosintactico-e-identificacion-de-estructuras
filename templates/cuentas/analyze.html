@@ -94,6 +94,17 @@
           {% for token in doc %}
           <p><b>{{ token.text }}:</b> {{ token.pos_ }}. {{ token.morph }}</p>
           {% endfor %}
+          <form action="/download" method="POST">
+            {% csrf_token %}
+            <select id="format" name="format">
+              <option value="pdf">Pdf</option>
+              <option value="txt">Txt</option>
+              <option value="xls">Xls</option>
+            </select>
+            <input type="hidden" name="method" value="morphologic">
+            <input type="hidden" name="sentence" value="{{ sentence }}">
+            <button type="submit" class="btn btn-secondary" name="download">Download results</button>
+          </form>
           {% endif %}
           {% endif %}
         </div>
