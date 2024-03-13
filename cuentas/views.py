@@ -11,6 +11,8 @@ from django.contrib import messages
 from django.conf import settings
 import benepar, spacy
 import constituent_treelib as ct
+from happytransformer import HappyTextToText
+from happytransformer import TTSettings
 from reportlab.pdfgen.canvas import Canvas
 nlp = spacy.load("en_core_web_sm")
 if spacy.__version__.startswith('2'):
@@ -179,6 +181,25 @@ def analyze(request):
             return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "morphologic", 'morph': morph})
     else:
         return render(request, "cuentas/analyze.html", {'user': request.user})
+    
+@login_required
+def tone(request):
+    if request.method=="POST":
+        text=request.POST.get('sentence')
+        settings = TTSettings(do_sample=True, top_k=20, temperature=0.5, min_length=1, max_length=100)
+        if request.POST.get('tone')=="formal":
+            casual_to_formal=HappyTextToText("T5", "prithivida/informal_to_formal_styletransfer")
+            input = "transfer Casual to Formal: " + text
+            result=casual_to_formal.generate_text(input, args=settings)
+        elif request.POST.get('tone')=='casual':
+            formal_to_casual=HappyTextToText("T5", "prithivida/formal_to_informal_styletransfer")
+            input = "transfer Formal to Casual: " + text
+            result=formal_to_casual.generate_text(input, args=settings)
+        print(result)
+        return render(request, "cuentas/tone.html", {'user': request.user, 'result': result.text})
+
+    else:
+        return render(request, "cuentas/tone.html", {'user': request.user})
 
 @login_required
 def download(request):

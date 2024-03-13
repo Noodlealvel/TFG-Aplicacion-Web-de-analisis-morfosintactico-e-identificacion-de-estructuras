@@ -63,3 +63,7 @@ textarea {
   border-top: 2px solid black;
   line-height: 100%;
 }
+
+.nav-item{
+  margin: 1vw;
+}
