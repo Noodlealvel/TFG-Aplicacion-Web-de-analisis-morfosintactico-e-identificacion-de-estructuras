@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,9 +16,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
-  <header>
+  <div class="top">
     {% include "cuentas/menu.html" %}
-  </header>
+  </div>
 
   <div class="container-fluid">
     <div class="half-top">
@@ -25,6 +26,7 @@
         {% csrf_token %}
         <div class="row-auto">
           <div class="col-auto">
+            <h2 style="text-align:center">Sentence analysis</h2>
             <textarea wrap="off" name="sentence" value="sentence"></textarea>
           </div>
         </div>
@@ -38,13 +40,12 @@
     </div>
 
     <div class="horizontal_line"></div>
-
     <div class="half-bottom">
       <div class="row auto justify-content-center">
-        <div class="col md p-4">
+        <div class="col xs">
           {% if doc is not None %}
           {% if method == "syntactic" %}
-          <p style="word-spacing:5rem">
+          <!--<p style="word-spacing:5rem">
             {% for token in doc %}
             {{ token.pos_ }}
             {% endfor %}
@@ -57,9 +58,10 @@
             {{ token.dep_ }}
             {% endfor %}
           </p>
-          <!--<p style="padding:2vh">{{ constituency }}</p>-->
-          <img src="{% static resultspath %}" width="1000px" height="1000px" style="display: block; margin-left:auto; margin-right:auto;">
+          <p style="padding:2vh">{{ constituency }}</p>-->
+          <img src="{% static resultspath %}" width="600px" height="600px" style="margin-left:auto; margin-right:auto;">
 
+          <div class="downloadform">
           <form action="/download" method="POST">
             {% csrf_token %}
             <select id="format" name="format">
@@ -71,10 +73,12 @@
             <input type="hidden" name="sentence" value="{{ sentence }}">
             <button type="submit" class="btn btn-secondary" name="download">Download results</button>
           </form>
+        </div>
           {% elif method == "morphologic" %}
           {% for token in doc %}
           <p><b>{{ token.text }}:</b> {{ token.pos_ }}. {{ token.morph }}</p>
           {% endfor %}
+          <div class="downloadform">
           <form action="/download" method="POST">
             {% csrf_token %}
             <select id="format" name="format">
@@ -86,6 +90,7 @@
             <input type="hidden" name="sentence" value="{{ sentence }}">
             <button type="submit" class="btn btn-secondary" name="download">Download results</button>
           </form>
+        </div>
           {% endif %}
           {% endif %}
         </div>

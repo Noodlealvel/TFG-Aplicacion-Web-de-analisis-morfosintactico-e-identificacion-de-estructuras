@@ -12,6 +12,22 @@ body{
     background-color: #9db1bd !important;
 }
 
+.top {
+  background-color: #ece5e5;
+}
+
+button.button {
+  background: none;
+  border: none;
+  border-bottom: #02274a 1px solid;
+  padding: 0 0 3px 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+button:hover {
+  background: #2371a0;
+}
+
 .container{
   margin-top:40px;
 }
@@ -44,15 +60,18 @@ textarea {
 .half-top {
   display:flex;
   align-items: center;
-  margin-top:10vh;
+  margin-top:5vh;
   justify-content: center;
 }
 
 .half-bottom {
   display:flex;
   align-items: center;
-  margin-top:10vh;
+  margin-top:5vh;
   justify-content: center;
+}
+
+.downloadform{
   text-align:center;
 }
 
