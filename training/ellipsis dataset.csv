@@ -10,7 +10,7 @@ John came early and he ate all the snacks.,0
 This castle is Ireland’s best.,1
 This castle is Ireland’s best castle.,0
 I drove my friend’s car today. Mine was at the workshop.,1
-I drove my friend’s car today. Miy car was at the workshop.,0
+I drove my friend’s car today. My car was at the workshop.,0
 I gave the shopkeeper fifty dollars and he returned twenty-five.,1
 I gave the shopkeeper fifty dollars and he returned twenty-five dollars.,0
 "He said he found a thick book, which has a brown cover. I think it is Alice's.",1
@@ -59,3 +59,153 @@ Do you want to stay in or do you want to go out tonight?,0
 "My car is blue, and my sister's car is blue too.",0
 "Greta ate two cupcakes, but I ate three.",1
 "Greta ate two cupcakes, but I ate three cupcakes.",0
+"He's from London; she, from Paris.",1
+He's from London; she's from Paris.,0
+"He sings opera; she, jazz.",1
+He sings opera; she sings jazz.,0
+"She prefers dogs; he, cats.",1
+She prefers dogs; he prefers cats.,0
+"He's a writer; she, a painter.",1
+He's a writer; she's a painter.,0
+"She speaks Spanish; he, French.",1
+She speaks Spanish; he speaks French.,0
+"He's a vegetarian; she, a vegan.",1
+He's a vegetarian; she's a vegan.,0
+"She's an early riser; he, a night owl.",1
+She's an early riser; he's a night owl.,0
+"He enjoys hiking; she, swimming.",1
+He enjoys hiking; she enjoys swimming.,0
+"She's a doctor; he, a lawyer.",1
+She's a doctor; he's a lawyer.,0
+"He prefers summer; she, winter.",1
+He prefers summer; she prefers winter.,0
+"Crap, forgot to lock the door again.",1
+"Crap, I forgot to lock the door again.",0
+"Got caught in the rain without an umbrella, the poor girl.",1
+"She got caught in the rain without an umbrella, the poor girl.",0
+Played tennis with James yesterday.,1
+I played tennis with James yesterday.,0
+Bought a new laptop online.,1
+He bought a new laptop online.,0
+Forgot my lunch at home.,1
+She forgot her lunch at home.,0
+She's as fast as lightning.,1
+She's fast as lightning.,0
+He's as strong as an ox.,1
+He's strong as an ox.,0
+It's bland as water.,1
+It's as bland as water.,0
+"Tom enjoys swimming, and Sarah surfing.",1
+"Tom enjoys swimming, and Sarah enjoys surfing.",0
+"Lucas prefers hiking, and Emily biking.",1
+"Lucas prefers hiking, and Emily prefers biking.",0
+"David loves reading, and Lisa writing.",1
+"David loves reading, and Lisa loves writing.",0
+"Alex adores skiing, and Emma snowboarding.",1
+"Alex adores skiing, and Emma adores snowboarding.",0
+"Michael enjoys painting, and Sophia sculpting.",1
+"Michael enjoys painting, and Sophia enjoys sculpting.",0
+"Peter loves fishing, and Emma swimming.",1
+"Peter loves fishing, and Emma loves swimming.",0
+"Daniel enjoys cooking, and Jessica baking.",1
+"Daniel enjoys cooking, and Jessica enjoys baking.",0
+"Matthew likes hiking, and Olivia camping.",1
+"Matthew likes hiking, and Olivia likes camping.",0
+Would you like tea or coffee for breakfast?,1
+Would you like tea or would you like coffee for breakfast?,0
+Are you going to the party or staying home?,1
+Are you going to the party or are you staying home?,0
+Should we watch a movie or play board games?,1
+Should we watch a movie or should we play board games?,0
+Will you wear the blue dress or the red one?,1
+Will you wear the blue dress or will you wear the red one?,0
+Do you prefer pizza or pasta for dinner?,1
+Do you prefer pizza or do you prefer pasta for dinner?,0
+She couldn't decide whether to watch a movie or read a book.,1
+She couldn't decide whether to watch a movie or to read a book.,0
+He debated between going for a run or staying home.,1
+He debated between going for a run or between staying home.,0
+They discussed whether to travel abroad or explore their own country.,1
+They discussed whether to travel abroad or whether to explore their own country.,0
+I'm torn between ordering pizza or cooking dinner.,1
+I'm torn between ordering pizza or between cooking dinner.,0
+She hesitated over buying the blue shoes or the red ones.,1
+She hesitated over buying the blue shoes or over buying the red ones.,0
+He enjoys spending his weekends hiking or biking.,1
+He enjoys spending his weekends hiking or spending his weekends biking.,0
+She spends her evenings reading or painting.,1
+She spends her evenings reading or spending her evenings painting.,0
+They celebrated their anniversary with a romantic dinner or a weekend getaway.,1
+They celebrated their anniversary with a romantic dinner or with a weekend getaway.,0
+We can meet at the park or at the café.,1
+We can meet at the park or we can meet at the café.,0
+He's considering taking a yoga class or joining a gym.,1
+He's considering taking a yoga class or considering joining a gym.,0
+She loves listening to jazz music or watching classic movies.,1
+She loves listening to jazz music or she loves watching classic movies.,0
+We can cook dinner together or order takeout.,1
+We can cook dinner together or we can order takeout.,0
+He plans to visit Spain or Italy for his next vacation.,1
+He plans to visit Spain or he plans to visit Italy for his next vacation.,0
+She enjoys going for walks in the park or picnicking by the lake.,1
+She enjoys going for walks in the park or she enjoys picnicking by the lake.,0
+They're debating whether to buy a house or rent an apartment.,1
+They're debating whether to buy a house or whether to rent an apartment.,0
+"They found a stray dog in the park, but they don't know whose it is.",1
+"They found a stray dog in the park, but they don't know whose dog it is.",0
+"I received a package in the mail, but I'm not sure who it's from.",1
+"I received a package in the mail, but I'm not sure who the package is from.",0
+"She bought tickets for the concert, but she doesn't know who she'll go with.",1
+"She bought tickets for the concert, but she doesn't know who she'll go to the concert with.",0
+"He found a wallet on the street, but he doesn't know whose it is.",1
+"He found a wallet on the street, but he doesn't know whose wallet it is.",0
+"We have an extra chair at the table, but we don't know who's it for.",1
+"We have an extra chair at the table, but we don't know who the chair is for.",0
+Peter arrived late and missed the meeting.,1
+Peter arrived late and he missed the meeting.,0
+"They bought three tickets, but only needed two.",1
+"They bought three tickets, but only needed two tickets.",0
+The dog ran away and ate all the food.,1
+The dog ran away and it ate all the food.,0
+"We bought groceries, but forgot the milk.",1
+"We bought groceries, but we forgot the milk.",0
+She felt something was missing.,1
+She felt that something was missing.,0
+They were sure it would rain.,1
+They were sure that it would rain.,0
+He sensed someone was watching him.,1
+He sensed that someone was watching him.,0
+We knew there was a problem.,1
+We knew that there was a problem.,0
+I'm happy you made it.,1
+I'm happy that you made it.,0
+They were excited she got the job.,1
+They were excited that she got the job.,0
+He's aware something is bothering her.,1
+He's aware that something is bothering her.,0
+She's confident they will succeed.,1
+She's confident that they will succeed.,0
+We're certain it's going to be fun.,1
+We're certain that it's going to be fun.,0
+He's hopeful she'll forgive him.,1
+He's hopeful that she'll forgive him.,0
+Found a dollar on the street.,1
+I found a dollar on the street.,0
+Finished my homework early.,1
+I finished my homework early.,0
+Missed the bus this morning.,1
+He missed the bus this morning.,0
+Broke her phone screen.,1
+She broke her phone screen.,0
+Spilled coffee on my shirt.,1
+I spilled coffee on my shirt.,0
+Dropped his wallet somewhere around here.,1
+He dropped his wallet somewhere around here.,0
+Bought a new book yesterday.,1
+She bought a new book yesterday.,0
+Sprained my ankle playing soccer.,1
+I sprained my ankle playing soccer.,0
+Burned the toast this morning.,1
+I burned the toast this morning.,0
+Tripped on the stairs.,1
+She tripped on the stairs.,0
