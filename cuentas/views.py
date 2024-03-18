@@ -13,6 +13,7 @@ import benepar, spacy
 import constituent_treelib as ct
 from happytransformer import HappyTextToText
 from happytransformer import TTSettings
+from happytransformer import HappyTextClassification
 from reportlab.pdfgen.canvas import Canvas
 nlp = spacy.load("en_core_web_sm")
 if spacy.__version__.startswith('2'):
@@ -159,19 +160,27 @@ def analyze(request):
         sentence=request.POST.get('sentence')
         doc = nlp(sentence)
         if request.POST.get('analyze')=="syntactic":
-            sent = list(doc.sents)[0]
+            #sent = list(doc.sents)[0]
             
             #sent = list(doc.sents)[0]
             #displacy.serve(doc, style="dep")
             #for token in doc:
             #   print(token.text, token.pos_, token.dep_)
-            constituency=sent._.parse_string
-            print(constituency)
+            #constituency=sent._.parse_string
+            #print(constituency)
+
             tree=ct.ConstituentTree(sentence, nlp)
             imagepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + '/resultsSyntactic.svg')
             tree.export_tree(destination_filepath=imagepath, verbose=True)
             resultspath= "/media/" + request.user.get_username() + "/resultsSyntactic.svg"
-            return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "syntactic", 'constituency':constituency, 'resultspath': resultspath})
+
+            modelsPath = os.path.join(os.path.dirname(os.path.dirname(__file__)),'training/')
+            ellipsisPath = os.path.join(modelsPath, 'ellipsis')
+            ellipsisModel = HappyTextClassification(model_name=ellipsisPath)
+            ell=ellipsisModel.classify_text(sentence)
+            print(ell)
+
+            return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "syntactic", 'resultspath': resultspath, 'ell':ell.label})
         else:
             morph=[]
             for token in doc:
