@@ -71,6 +71,10 @@ textarea {
   justify-content: center;
 }
 
+.modal-body {
+  font-size:large
+}
+
 .downloadform{
   text-align:center;
 }

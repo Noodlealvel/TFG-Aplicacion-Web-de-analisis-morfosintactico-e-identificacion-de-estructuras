@@ -1,0 +1,202 @@
+text,label
+"The sun shone brightly, the air was crisp.",1
+The sun shone brightly. The air was crisp.,0
+The sun shone brightly.,0
+The air was crisp.,0
+"She laughed joyfully, tears streaming down her face.",1
+She laughed joyfully. Tears streamed down her face.,0
+She laughed joyfully.,0
+Tears streamed down her face.,0
+"The city was bustling with activity, the streets filled with noise.",1
+The city was bustling with activity. The streets were filled with noise.,0
+The city was bustling with activity. The streets were filled with noise.,0
+The streets were filled with noise.,0
+"His words were sharp, his tone biting.",1
+His words were sharp. His tone was biting.,0
+"The forest was serene, the trees whispering secrets to the wind.",1
+The forest was serene. The trees whispered secrets to the wind.,0
+"She walked in, he ran out.",1
+She walked in while he ran out.,0
+"This is the person, I met him yesterday.",1
+This is the person who I met yesterday.,0
+"She walked in, he ran out.",1
+She walked in while he ran out.,0
+"The sun rose, the birds sang.",1
+The sun rose and the birds sang.,0
+"He laughed, she cried.",1
+He laughed and she cried.,0
+"They danced all night, they slept all day.",1
+They danced all night and then they slept all day.,0
+"The rain poured down, the wind howled.",1
+The rain poured down while the wind howled.,0
+"She spoke softly, he listened intently.",1
+She spoke softly while he listened intently.,0
+"He played guitar, she sang along.",1
+He played guitar and she sang along.,0
+"The flowers bloomed, the bees buzzed.",1
+The flowers bloomed and the bees buzzed.,0
+"The waves crashed against the shore, the seagulls soared above.",1
+The waves crashed against the shore. The seagulls soared above.,0
+The waves crashed against the shore.,0
+The seagulls soared above.,0
+"They argued fiercely, they made up quickly.",1
+They argued fiercely but then they made up quickly.,0
+They argued fiercely.,0
+"The fire crackled, the marshmallows roasted.",1
+The fire crackled. The marshmallows roasted.,0
+"He cooked dinner, she set the table.",1
+He cooked dinner and she set the table.,0
+"The woman is a doctor, she lives next door.",1
+The woman who lives next door is a doctor.,0
+"He found a book, it belonged to his grandfather.",1
+He found a book that belonged to his grandfather.,0
+"She introduced me to a friend, her brother is a famous actor.",1
+She introduced me to a friend whose brother is a famous actor.,0
+"The restaurant was excellent, we had dinner there last night.",1
+The restaurant where we had dinner last night was excellent.,0
+"He wore a suit, it was too big for him.",1
+He wore a suit which was too big for him.,0
+"She gave me a gift, I treasure it dearly.",1
+She gave me a gift which I treasure dearly.,0
+"The park has been renovated, we used to play there as children.",1
+The park where we used to play as children has been renovated.,0
+The dog that barks loudly at night belongs to the Smiths.,0
+"The dog barks loudly at night, it belongs to the Smiths.",1
+She visited a country where the people are incredibly hospitable.,0
+"She visited a country, the people are incredibly hospitable there.",1
+He bought a car which turned out to be a lemon.,0
+"He bought a car, it turned out to be a lemon.",1
+The novel that I'm reading right now is a bestseller.,0
+"I'm reading a novel right now, it is a bestseller.",1
+We went to a party where the music was too loud.,0
+"We went to a party, the music was too loud there.",1
+The computer that he uses for work crashed yesterday.,0
+"The computer crashed yesterday, he used it for work.",1
+She baked a cake everyone enjoyed at the party.,0
+"She baked a cake, everyone enjoyed it at the party.",1
+The shoes that she bought online don't fit properly.,0
+"The shoes don't fit properly, she bought them online.",1
+We stayed at a hotel where the service was exceptional.,0
+"We stayed at a hotel, the service was exceptional there.",1
+He attended a school which had a strict dress code.,0
+"He attended a school, it had a strict dress code.",1
+She adopted a cat which quickly became part of the family.,0
+"She adopted a cat, it quickly became part of the family.",1
+The painting that hung on the wall was a masterpiece.,0
+"The painting hung on the wall, it was a masterpiece.",1
+He chose a restaurant where the food was delicious.,0
+"He chose a restaurant, the food was delicious there.",1
+They visited a city where the architecture was breathtaking.,0
+"They visited a city, the architecture was breathtaking there.",1
+She received a scholarship which covered her tuition fees.,0
+"She received a scholarship, it covered her tuition fees.",1
+The watch that he wore was a family heirloom.,0
+"He wore a watch, it was a family heirloom.",1
+They attended a wedding where the decorations were stunning.,0
+"They attended a wedding, the decorations were stunning.",1
+He purchased a house that had a beautiful garden.,0
+"He purchased a house, it had a beautiful garden.",1
+The museum that we visited had an impressive collection.,0
+"We visited a museum, it had an impressive collection.",1
+She joined a club where she made lifelong friends.,0
+"She joined a club, she made lifelong friends there.",1
+He bought a camera which he used to capture beautiful moments.,0
+"He bought a camera, he used it to capture beautiful moments.",1
+They attended a concert where the atmosphere was electrifying.,0
+"They attended a concert, the atmosphere was electrifying there.",1
+She found a job that allowed her to work from home.,0
+"She found a job, it allowed her to work from home.",1
+The company that he works for offers excellent benefits.,0
+"He works for a company, it offers excellent benefits.",1
+We went to a beach where the sand was soft and white.,0
+"We went to a beach, the sand was soft and white there.",1
+He wrote a story which became a bestseller.,0
+"He wrote a story, it became a bestseller.",1
+They visited a museum where they learned about ancient civilizations.,0
+"They visited a museum, they learned about ancient civilizations there.",1
+She attended a conference which broadened her perspective.,0
+"She attended a conference, it broadened her perspective.",1
+The restaurant that they recommended had amazing seafood.,0
+"They recommended a restaurant, it had amazing seafood.",1
+He bought a house which needed extensive renovations.,0
+"He bought a house, it needed extensive renovations.",1
+He adopted a dog which quickly became his best friend.,0
+"He adopted a dog, it quickly became his best friend.",1
+They traveled to a country where they experienced new cultures.,0
+"They traveled to a country, they experienced new cultures there.",1
+She received an award which recognized her achievements.,0
+"She received an award, it recognized her achievements.",1
+The book that she finished last night was a thriller.,0
+"The book was a thriller, she finished it last night.",1
+We attended a party where we danced until dawn.,0
+"We attended a party, we danced until dawn there.",1
+He bought a car which turned out to be a lemon.,0
+"He bought a car, it turned out to be a lemon.",1
+They hiked to a mountain where they enjoyed breathtaking views.,0
+"They hiked to a mountain, they enjoyed breathtaking views there.",1
+She joined a club which organized charity events.,0
+"She joined a club, it organized charity events.",1
+The apartment that they rented had a stunning view of the city.,0
+"They rented an apartment, it had a stunning view of the city.",1
+He cooked a meal which impressed all his guests.,0
+"He cooked a meal, it impressed all his guests.",1
+She bought a dress which she wore to the party.,0
+"She bought a dress, she wore it to the party.",1
+They watched a movie which kept them on the edge of their seats.,0
+"They watched a movie, it kept them on the edge of their seats.",1
+He visited a museum where he learned about ancient history.,0
+"He visited a museum, he learned about ancient history there.",1
+The cake that she baked was delicious.,0
+"She baked a cake, it was delicious.",1
+We attended a wedding where we danced all night.,0
+"We attended a wedding, we danced all night there.",1
+They went to a park which had a beautiful lake.,0
+"They went to a park, it had a beautiful lake.",1
+She wrote a poem which touched everyone's hearts.,0
+"She wrote a poem, it touched everyone's hearts.",1
+The house they bought was in a quiet neighborhood.,0
+"They bought a house, it was in a quiet neighborhood.",1
+He received a gift which he cherished forever.,0
+"He received a gift, he cherished it forever.",1
+They attended a concert which featured their favorite band.,0
+"They attended a concert, it featured their favorite band.",1
+She met a friend who introduced her to salsa dancing.,0
+"She met a friend, he introduced her to salsa dancing.",1
+They visited a city where they discovered hidden gems.,0
+"They visited a city, they discovered hidden gems there.",1
+He adopted a dog who became his loyal companion.,0
+"He adopted a dog, he became his loyal companion.",1
+The book that he read some days ago was captivating.,0
+"He read a book some days ago, it was captivating.",1
+We attended a conference where we gained valuable insights.,0
+"We attended a conference, we gained valuable insights there.",1
+She bought a car which she drove cross-country.,0
+"She bought a car, she drove it cross-country.",1
+They went to a restaurant where they sampled exotic cuisine.,0
+"They went to a restaurant, they sampled exotic cuisine there.",1
+He joined a gym which helped him improve his fitness.,0
+"He joined a gym, it helped him improve his fitness.",1
+The house that they rented was fully furnished.,0
+"They rented a house, it was fully furnished.",1
+She received an email which contained exciting news.,0
+"She received an email, it contained exciting news.",1
+I met a woman who offered me a job.,0
+"I met a woman, she offered me a job.",1
+They visited a friend who lived in the countryside.,0
+"They visited a friend, he lived in the countryside.",1
+She spoke with someone who tried to scam her.,0
+"She spoke with someone, they tried to scam her.",1
+The movie that he watched last night was a thriller.,0
+"The movie, he watched it last night, was a thriller.",1
+We attended a party where we met interesting people.,0
+"We attended a party, we met interesting people there.",1
+She bought a phone which had a great camera.,0
+"She bought a phone, it had a great camera.",1
+They visited a museum who hosted a special exhibit.,0
+"They visited a museum, it hosted a special exhibit.",1
+He joined a club who organized community events.,0
+"He joined a club, it organized community events.",1
+The place we went to was in a bad shape.,0
+"We went to a place, it was in a bad shape.",1
+She received an invitation which included a plus one.,0
+"She received an invitation, it included a plus one.",1

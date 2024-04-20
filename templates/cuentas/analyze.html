@@ -41,9 +41,9 @@
 
     <div class="horizontal_line"></div>
     <div class="half-bottom">
+      {% if doc is not None %}
       <div class="row auto justify-content-center">
         <div class="col xs">
-          {% if doc is not None %}
           {% if method == "syntactic" %}
           <!--<p style="word-spacing:5rem">
             {% for token in doc %}
@@ -63,42 +63,70 @@
 
           <!--{{ ell }}-->
 
-          <div class="downloadform">
-          <form action="/download" method="POST">
-            {% csrf_token %}
-            <select id="format" name="format">
-              <option value="pdf">Pdf</option>
-              <option value="txt">Txt</option>
-              <option value="xls">Xls</option>
-            </select>
-            <input type="hidden" name="method" value="syntactic">
-            <input type="hidden" name="sentence" value="{{ sentence }}">
-            <button type="submit" class="btn btn-secondary" name="download">Download results</button>
-          </form>
-        </div>
           {% elif method == "morphologic" %}
           {% for token in doc %}
           <p><b>{{ token.text }}:</b> {{ token.pos_ }}. {{ token.morph }}</p>
           {% endfor %}
+          {% endif %}
+
+
+          {% if positives|length >= 1 %}
+
+          <div class="row auto justify-content-center">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#structures">
+              Structures
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="structures" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Structures</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>This sentence contains examples of:<br>
+                    <ul>
+                    {% for structure in positives %}
+                    <li>{{ structure }}</li>
+                    {% endfor %}</p>
+                  </ul>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+
+
           <div class="downloadform">
-          <form action="/download" method="POST">
-            {% csrf_token %}
-            <select id="format" name="format">
-              <option value="pdf">Pdf</option>
-              <option value="txt">Txt</option>
-              <option value="xls">Xls</option>
-            </select>
-            <input type="hidden" name="method" value="morphologic">
-            <input type="hidden" name="sentence" value="{{ sentence }}">
-            <button type="submit" class="btn btn-secondary" name="download">Download results</button>
-          </form>
-        </div>
-          {% endif %}
-          {% endif %}
+            <form action="/download" method="POST">
+              {% csrf_token %}
+              <select id="format" name="format">
+                <option value="pdf">Pdf</option>
+                <option value="txt">Txt</option>
+                <option value="xls">Xls</option>
+              </select>
+              {% if method == "syntactic" %}
+              <input type="hidden" name="method" value="syntactic">
+              {% elif method == "morphologic" %}
+              <input type="hidden" name="method" value="morphologic">
+              {% endif %}
+              <input type="hidden" name="sentence" value="{{ sentence }}">
+              <button type="submit" class="btn btn-secondary" name="download">Download results</button>
+            </form>
+          </div>
         </div>
       </div>
+      {% endif %}
     </div>
-
   </div>
 
 

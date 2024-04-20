@@ -1,2 +1,6 @@
 
 training/ellipsis/model.safetensors
+training/embedding/model.safetensors
+training/fronting/model.safetensors
+training/juxtaposition/model.safetensors
+training/inversion/model.safetensors

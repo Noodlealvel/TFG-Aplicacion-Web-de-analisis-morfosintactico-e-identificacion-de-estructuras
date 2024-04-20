@@ -158,6 +158,19 @@ def log_out(request):
 def analyze(request):
     if request.method=='POST':
         sentence=request.POST.get('sentence')
+
+        structures = ["ellipsis", "juxtaposition", "fronting", "inversion", "embedding"]
+        positives = []
+        structuresDict = {}
+        modelsPath = os.path.join(os.path.dirname(os.path.dirname(__file__)),'training/')
+        for structure in structures:
+            path = os.path.join(modelsPath, structure)
+            model = HappyTextClassification(model_name=path)
+            result=model.classify_text(sentence)
+            structuresDict[structure]=result.label
+            if (result.label=="POSITIVE"):
+                positives.append(structure)
+
         doc = nlp(sentence)
         if request.POST.get('analyze')=="syntactic":
             #sent = list(doc.sents)[0]
@@ -174,20 +187,14 @@ def analyze(request):
             tree.export_tree(destination_filepath=imagepath, verbose=True)
             resultspath= "/media/" + request.user.get_username() + "/resultsSyntactic.svg"
 
-            modelsPath = os.path.join(os.path.dirname(os.path.dirname(__file__)),'training/')
-            ellipsisPath = os.path.join(modelsPath, 'ellipsis')
-            ellipsisModel = HappyTextClassification(model_name=ellipsisPath)
-            ell=ellipsisModel.classify_text(sentence)
-            print(ell)
-
-            return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "syntactic", 'resultspath': resultspath, 'ell':ell.label})
+            return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "syntactic", 'resultspath': resultspath, 'positives': positives})
         else:
             morph=[]
             for token in doc:
                 #expl=spacy.explain(token.tag_)
                 morph.append(str(token.morph))
 
-            return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "morphologic", 'morph': morph})
+            return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "morphologic", 'morph': morph, 'positives': positives})
     else:
         return render(request, "cuentas/analyze.html", {'user': request.user})
     
