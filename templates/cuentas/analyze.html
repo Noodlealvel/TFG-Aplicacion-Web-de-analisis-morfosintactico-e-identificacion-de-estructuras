@@ -69,7 +69,6 @@
           {% endfor %}
           {% endif %}
 
-
           {% if positives|length >= 1 %}
 
           <div class="row auto justify-content-center">
@@ -90,10 +89,51 @@
                   <div class="modal-body">
                     <p>This sentence contains examples of:<br>
                     <ul>
-                    {% for structure in positives %}
-                    <li>{{ structure }}</li>
-                    {% endfor %}</p>
-                  </ul>
+                      {% for structure in positives %}
+                      <li>
+                        <h3>{{ structure }}</h3>
+                      </li>
+                      {% if structure == "Ellipsis" %}
+                      Ellipsis is a common grammatical device used to avoid repetition, make sentences more
+                      concise, and create a more natural flow of speech or text.
+                      When we leave out one or more words that we would not omit from a normal grammatical
+                      sentence, ellipsis happens. Examples:<br>
+                      <ul>
+                        <li>Jim likes to drink beer, and Sally juice.</li>
+                        <li>She wanted to go bowling, so she did.</li>
+                      </ul>
+                      {% elif structure == "Juxtaposition" %}
+                      Juxtaposition happens when you join two sentences together by use of a comma. Examples:<br>
+                      <ul>
+                        <li>This is the person, I met him yesterday.</li>
+                        <li>We visited a museum, it had an impressive collection.</li>
+                      </ul>
+                      {% elif structure == "Fronting" %}
+                      Fronting refers to when a group of words that would usually appear after a verb
+                      (such as an object, complement, adverbial or prepositional phrase) is placed at the front of
+                      a sentence instead. Examples:<br>
+                      <ul>
+                        <li>It was last Thursday when we saw each other.</li>
+                        <li>Standing before me was my old school friend.</li>
+                      </ul>
+                      {% elif structure == "Inversion" %}
+                      Inversion means reversing (inverting) the normal subject-verb word order in a sentence. This
+                      makes the sentence more formal. Examples:<br>
+                      <ul>
+                        <li>No sooner had the game started than the captain was taken ill.</li>
+                        <li>Under no circumstances will I lend you my car again.</li>
+                      </ul>
+                      {% elif structure == "Embedding" %}
+                      Embedding refers to the incorporation of one clause or phrase within another, creating a
+                      hierarchical structure.
+                      This is commonly seen in sentences where one idea is nested within another, often through
+                      the use of subordinate clauses or phrases. Examples:<br>
+                      <ul>
+                        {% endif %}
+                        {% endfor %}
+                      </ul>
+                      <a class="btn btn-danger" href="/correct">Correct results</a>
+                      </p>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -103,8 +143,6 @@
             </div>
           </div>
           {% endif %}
-
-
 
           <div class="downloadform">
             <form action="/download" method="POST">

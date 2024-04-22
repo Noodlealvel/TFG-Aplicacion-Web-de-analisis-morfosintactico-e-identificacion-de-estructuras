@@ -159,7 +159,7 @@ def analyze(request):
     if request.method=='POST':
         sentence=request.POST.get('sentence')
 
-        structures = ["ellipsis", "juxtaposition", "fronting", "inversion", "embedding"]
+        structures = ["Ellipsis", "Juxtaposition", "Fronting", "Inversion", "Embedding"]
         positives = []
         structuresDict = {}
         modelsPath = os.path.join(os.path.dirname(os.path.dirname(__file__)),'training/')
