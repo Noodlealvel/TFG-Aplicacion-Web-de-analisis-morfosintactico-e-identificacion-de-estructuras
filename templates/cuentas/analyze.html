@@ -20,8 +20,23 @@
     {% include "cuentas/menu.html" %}
   </div>
 
+  {% if messages %}
+  {% for message in messages %}
+  {% if message.tags == "success" %}
+  <div class="alert alert-success" role="alert">
+    {{ message }}
+  </div>
+  {% elif message.tags == "error" %}
+  <div class="alert alert-danger" role="alert">
+    {{ message }}
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
   <div class="container-fluid">
     <div class="half-top">
+
       <form action="/analyze" method="POST">
         {% csrf_token %}
         <div class="row-auto">
@@ -42,8 +57,8 @@
     <div class="horizontal_line"></div>
     <div class="half-bottom">
       {% if doc is not None %}
-      <div class="row auto justify-content-center">
-        <div class="col xs">
+      <div class="row">
+        <div class="col-12">
           {% if method == "syntactic" %}
           <!--<p style="word-spacing:5rem">
             {% for token in doc %}
@@ -68,82 +83,144 @@
           <p><b>{{ token.text }}:</b> {{ token.pos_ }}. {{ token.morph }}</p>
           {% endfor %}
           {% endif %}
+        </div>
+      </div>
 
-          {% if positives|length >= 1 %}
+      {% if positives|length >= 1 %}
+      <!-- Button trigger modal -->
+      <div class="row">
+        <div class="col-12">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#structures">
+            Structures
+          </button>
+        </div>
+      </div>
 
-          <div class="row auto justify-content-center">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#structures">
-              Structures
-            </button>
+      <!-- Modal -->
+      <div class="modal fade" id="structures" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Structures</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>This sentence contains examples of:<br>
+              <ul>
+                {% for structure in positives %}
+                <li>
+                  <h3>{{ structure }}</h3>
+                </li>
+                {% if structure == "Ellipsis" %}
+                Ellipsis is a common grammatical device used to avoid repetition, make sentences more
+                concise, and create a more natural flow of speech or text.
+                When we leave out one or more words that we would not omit from a normal grammatical
+                sentence, ellipsis happens. Examples:<br>
+                <ul>
+                  <li>Jim likes to drink beer, and Sally juice.</li>
+                  <li>She wanted to go bowling, so she did.</li>
+                </ul>
+                {% elif structure == "Juxtaposition" %}
+                Juxtaposition happens when you join two sentences together by use of a comma. Examples:<br>
+                <ul>
+                  <li>This is the person, I met him yesterday.</li>
+                  <li>We visited a museum, it had an impressive collection.</li>
+                </ul>
+                {% elif structure == "Fronting" %}
+                Fronting refers to when a group of words that would usually appear after a verb
+                (such as an object, complement, adverbial or prepositional phrase) is placed at the front of
+                a sentence instead. Examples:<br>
+                <ul>
+                  <li>It was last Thursday when we saw each other.</li>
+                  <li>Standing before me was my old school friend.</li>
+                </ul>
+                {% elif structure == "Inversion" %}
+                Inversion means reversing (inverting) the normal subject-verb word order in a sentence. This
+                makes the sentence more formal. Examples:<br>
+                <ul>
+                  <li>No sooner had the game started than the captain was taken ill.</li>
+                  <li>Under no circumstances will I lend you my car again.</li>
+                </ul>
+                {% elif structure == "Embedding" %}
+                Embedding refers to the incorporation of one clause or phrase within another, creating a
+                hierarchical structure.
+                This is commonly seen in sentences where one idea is nested within another, often through
+                the use of subordinate clauses or phrases. Examples:<br>
+                <ul>
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+                </p>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-danger" data-bs-target="#correct" data-bs-toggle="modal"
+                data-bs-dismiss="modal">Correct results</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="structures" tabindex="-1" aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Structures</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <p>This sentence contains examples of:<br>
-                    <ul>
-                      {% for structure in positives %}
-                      <li>
-                        <h3>{{ structure }}</h3>
-                      </li>
-                      {% if structure == "Ellipsis" %}
-                      Ellipsis is a common grammatical device used to avoid repetition, make sentences more
-                      concise, and create a more natural flow of speech or text.
-                      When we leave out one or more words that we would not omit from a normal grammatical
-                      sentence, ellipsis happens. Examples:<br>
-                      <ul>
-                        <li>Jim likes to drink beer, and Sally juice.</li>
-                        <li>She wanted to go bowling, so she did.</li>
-                      </ul>
-                      {% elif structure == "Juxtaposition" %}
-                      Juxtaposition happens when you join two sentences together by use of a comma. Examples:<br>
-                      <ul>
-                        <li>This is the person, I met him yesterday.</li>
-                        <li>We visited a museum, it had an impressive collection.</li>
-                      </ul>
-                      {% elif structure == "Fronting" %}
-                      Fronting refers to when a group of words that would usually appear after a verb
-                      (such as an object, complement, adverbial or prepositional phrase) is placed at the front of
-                      a sentence instead. Examples:<br>
-                      <ul>
-                        <li>It was last Thursday when we saw each other.</li>
-                        <li>Standing before me was my old school friend.</li>
-                      </ul>
-                      {% elif structure == "Inversion" %}
-                      Inversion means reversing (inverting) the normal subject-verb word order in a sentence. This
-                      makes the sentence more formal. Examples:<br>
-                      <ul>
-                        <li>No sooner had the game started than the captain was taken ill.</li>
-                        <li>Under no circumstances will I lend you my car again.</li>
-                      </ul>
-                      {% elif structure == "Embedding" %}
-                      Embedding refers to the incorporation of one clause or phrase within another, creating a
-                      hierarchical structure.
-                      This is commonly seen in sentences where one idea is nested within another, often through
-                      the use of subordinate clauses or phrases. Examples:<br>
-                      <ul>
-                        {% endif %}
-                        {% endfor %}
-                      </ul>
-                      <a class="btn btn-danger" href="/correct">Correct results</a>
-                      </p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  </div>
-                </div>
+      <div class="modal fade" id="correct" aria-hidden="true" aria-labelledby="correct" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalToggleLabel2">Correct results</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Are the identified grammatical structures wrong? If so, please correct the sentence so that the
+              structures are really present.<br>
+              <form action="/correct" method="POST">
+                {% csrf_token %}
+                <textarea wrap="off" name="correctedsentence" value="correctedsentence"></textarea>
+                {% for structure in positives %}
+                <input type="hidden" name="{{ structure }}" value="{{ structure }}">
+                {% endfor %}
+                <!--<div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" value="ellipsis" name="ellipsis">
+                      <label class="form-check-label" for="ellipsis">
+                        Ellipsis
+                      </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" value="juxtaposition" name="juxtaposition">
+                      <label class="form-check-label" for="juxtaposition">
+                        Juxtaposition
+                      </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" value="fronting" name="fronting">
+                      <label class="form-check-label" for="fronting">
+                        Fronting
+                      </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" value="inversion" name="inversion">
+                      <label class="form-check-label" for="inversion">
+                        Inversion
+                      </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" value="embedding" name="embedding">
+                      <label class="form-check-label" for="embedding">
+                        Embedding
+                      </label>
+                    </div>-->
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Submit</button>
+              <div class="btn btn-secondary" data-bs-target="#structures" data-bs-toggle="modal"
+                data-bs-dismiss="modal">Go back</button>
+                </form>
               </div>
             </div>
           </div>
-          {% endif %}
-
+        </div>
+      </div>
+      {% endif %}
+      <div class="row">
+        <div class="col-12">
           <div class="downloadform">
             <form action="/download" method="POST">
               {% csrf_token %}
@@ -165,9 +242,6 @@
       </div>
       {% endif %}
     </div>
-  </div>
-
-
   </div>
 </body>
 

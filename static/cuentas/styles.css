@@ -62,17 +62,34 @@ textarea {
   align-items: center;
   margin-top:5vh;
   justify-content: center;
+  text-align:center;
 }
 
 .half-bottom {
   display:flex;
+  flex-direction: column;
   align-items: center;
-  margin-top:5vh;
   justify-content: center;
+}
+
+.half-bottom > div {
+  margin-bottom: 10px;
 }
 
 .modal-body {
   font-size:large
+}
+.modal-body .textarea {
+  resize: none !important;
+  width: 50vw;
+  height: 4vh;
+}
+
+.structuresbutton {
+  display:flex;
+  width: 100px; 
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .downloadform{

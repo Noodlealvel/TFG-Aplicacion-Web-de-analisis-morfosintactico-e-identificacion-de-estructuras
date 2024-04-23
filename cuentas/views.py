@@ -1,4 +1,3 @@
-from re import A
 import os
 from turtle import end_fill
 from django.shortcuts import redirect, render
@@ -197,6 +196,35 @@ def analyze(request):
             return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "morphologic", 'morph': morph, 'positives': positives})
     else:
         return render(request, "cuentas/analyze.html", {'user': request.user})
+
+@login_required
+def correct(request):
+    if request.method=="POST":
+        sentence=request.POST.get('correctedsentence')
+        structures = ["Ellipsis", "Juxtaposition", "Fronting", "Inversion", "Embedding"]
+        structurestocorrect=[]
+        for structure in structures:
+            print (request.POST.get(structure))
+            if request.POST.get(structure)==structure:
+                structurestocorrect.append(request.POST.get(structure))
+        path=os.path.join(os.path.dirname(os.path.dirname(__file__)),'training/datasets/')
+        newExample= '"' + sentence + '"' + ',1'
+        for structure in structurestocorrect:
+            filepath= path + structure + "_dataset.csv"
+            print(filepath)
+            exists = False
+            f = open(filepath, "r")
+            lines = f.readlines()
+            for row in lines:
+                if row.find(newExample) != -1:
+                    exists = True
+            f.close()
+            if not exists:
+                f = open(filepath, "a")
+                f.write("\n"+ newExample)
+                f.close()
+        messages.success(request, "Thank you for the feedback!")
+        return redirect("/analyze")
     
 @login_required
 def tone(request):
