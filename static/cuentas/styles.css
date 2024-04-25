@@ -32,23 +32,10 @@ button:hover {
   margin-top:40px;
 }
 
-.container-fluid{
-  font-size: xx-large;
-}
-
 h1 {
   color: #c0c0c0;
   font-family: verdana;
   font-size: 300%;
-}
-
-.topright {
-  position:absolute;
-  margin-top:150px;
-  float:right;
-  top: 8px;
-  right: 16px;
-  font-size: 18px;
 }
 
 textarea {
@@ -57,19 +44,73 @@ textarea {
   height: 8vh;
 }
 
+.left-column {
+  background-color: #8b9da7 !important;
+  border-right: 2px solid black;
+  float:left;
+  text-align: center;
+  width: 15%; 
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.left-column a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer; 
+}
+
+.left-column button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: serif;
+}
+.left-column button:focus {
+  outline: none;
+}
+
+.left-column a:hover {
+  cursor: pointer;
+}
+
+.half-top-analyze {
+  display:flex;
+  width:85%;
+  float:right;
+  align-items: center;
+  margin-top:5vh;
+  justify-content: center;
+  text-align:center;
+  font-size: xx-large;
+}
+
+.half-bottom-analyze {
+  display:flex;
+  width:85%;
+  float:right;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: xx-large;
+}
+
 .half-top {
   display:flex;
   align-items: center;
   margin-top:5vh;
   justify-content: center;
   text-align:center;
+  font-size: xx-large;
 }
 
-.half-bottom {
+.half-bottom-analyze {
   display:flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-size: xx-large;
 }
 
 .half-bottom > div {
@@ -96,9 +137,17 @@ textarea {
   text-align:center;
 }
 
+.horizontal_line_analyze {
+  margin-top: 4vh;
+  float:right;
+  width: 85%;
+  height: 2px;
+  border-top: 2px solid black;
+  line-height: 100%;
+}
+
 .horizontal_line {
   margin-top: 4vh;
-  width: 100%;
   height: 2px;
   border-top: 2px solid black;
   line-height: 100%;

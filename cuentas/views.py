@@ -1,8 +1,11 @@
 import os
+import re
+from datetime import datetime
 from turtle import end_fill
 from django.shortcuts import redirect, render
 from django.http import FileResponse
 from django.contrib.auth.models import User
+from cuentas.models import Analysis
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
@@ -153,6 +156,11 @@ def log_out(request):
     logout(request)
     return render(request, "cuentas/index.html")
 
+def cleanfilename(name):
+    pattern = r'[<>:"/\\|?*]'
+    clean = re.sub(pattern, '', name)
+    return clean
+
 @login_required
 def analyze(request):
     if request.method=='POST':
@@ -182,20 +190,28 @@ def analyze(request):
             #print(constituency)
 
             tree=ct.ConstituentTree(sentence, nlp)
-            imagepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + '/resultsSyntactic.svg')
+            imagepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + "/" + cleanfilename(sentence) + ".svg")
             tree.export_tree(destination_filepath=imagepath, verbose=True)
-            resultspath= "/media/" + request.user.get_username() + "/resultsSyntactic.svg"
-
-            return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "syntactic", 'resultspath': resultspath, 'positives': positives})
+            resultspath= "/media/" + request.user.get_username() + "/" + cleanfilename(sentence) + ".svg"
+            analysis = Analysis.objects.create(username=request.user.get_username(), sentence=sentence, type="syntactic", resultSyntactic=resultspath, date=datetime.now())
+            analysis.save()
+            history = Analysis.objects.filter(username=request.user.get_username())
+            return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "syntactic", 'resultspath': resultspath, 'positives': positives, 'history': history})
         else:
             morph=[]
+            results=""
             for token in doc:
                 #expl=spacy.explain(token.tag_)
                 morph.append(str(token.morph))
+                results+=token.text + ": " + token.pos_ + ". " + str(token.morph) + "\n"
 
-            return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "morphologic", 'morph': morph, 'positives': positives})
+            analysis = Analysis.objects.create(username=request.user.get_username(), sentence=sentence, type="morphologic", resultMorphologic=results, date=datetime.now())
+            analysis.save()
+            history = Analysis.objects.filter(username=request.user.get_username())
+            return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "morphologic", 'morph': morph, 'positives': positives, 'history': history})
     else:
-        return render(request, "cuentas/analyze.html", {'user': request.user})
+        history = Analysis.objects.filter(username=request.user.get_username())
+        return render(request, "cuentas/analyze.html", {'user': request.user, 'history': history})
 
 @login_required
 def correct(request):
@@ -279,7 +295,7 @@ def download(request):
         format=request.POST.get('format')
         if request.POST.get('method')=="syntactic":
             tree=ct.ConstituentTree(sentence, nlp)
-            filepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + '/resultsSyntactic.'+ format)
+            filepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + "/" + cleanfilename(sentence) + format)
             if format=="pdf":
                 wkhtmltopdf=os.path.join(os.path.dirname(os.path.dirname(__file__)), settings.WKHTMLTOPDF_PATH)
                 tree.export_tree(destination_filepath=filepath, wkhtmltopdf_bin_filepath=wkhtmltopdf, verbose=True)
@@ -291,7 +307,7 @@ def download(request):
             results=""
             for token in doc:
                 results+=token.text + ": " + token.pos_ + ". " + str(token.morph) + "\n"
-            filepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + '/resultsMorphologic.'+ format)
+            filepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + "/" + cleanfilename(sentence) + "Morpho"+ format)
             if format=="pdf":
                 #The quick brown fox jumps over the lazy dog
                 canvas = Canvas(filepath)

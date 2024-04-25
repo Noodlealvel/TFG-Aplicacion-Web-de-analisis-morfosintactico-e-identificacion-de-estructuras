@@ -35,8 +35,23 @@
   {% endif %}
 
   <div class="container-fluid">
-    <div class="half-top">
+    <div class="left-column">
+      <p><b>Analysis history</b></p>
+      {% if history|length != 0 %}
 
+      {% for analysis in history reversed %}
+      <form method="POST" action="/analyze">
+        {% csrf_token %}
+        <input type="hidden" name="sentence" value="{{ analysis.sentence }}">
+        <input type="hidden" name="analyze" value="{{ analysis.type }}">
+        <p><button type="submit">{{ analysis.sentence }}</button></p>
+      </form>
+      {% endfor %}
+
+      {% endif %}
+
+    </div>
+    <div class="half-top-analyze">
       <form action="/analyze" method="POST">
         {% csrf_token %}
         <div class="row-auto">
@@ -54,8 +69,8 @@
       </form>
     </div>
 
-    <div class="horizontal_line"></div>
-    <div class="half-bottom">
+    <div class="horizontal_line_analyze"></div>
+    <div class="half-bottom-analyze">
       {% if doc is not None %}
       <div class="row">
         <div class="col-12">
