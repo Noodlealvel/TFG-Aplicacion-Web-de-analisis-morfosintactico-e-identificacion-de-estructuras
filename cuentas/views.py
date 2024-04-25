@@ -246,6 +246,33 @@ def tone(request):
         return render(request, "cuentas/tone.html", {'user': request.user})
 
 @login_required
+def generate(request):
+    if request.method=="POST":
+        structures = ["ellipsis", "juxtaposition", "fronting", "inversion", "embedding"]
+        structurestouse=[]
+        for structure in structures:
+            print (request.POST.get(structure))
+            if request.POST.get(structure)==structure:
+                structurestouse.append(request.POST.get(structure))
+        modelsPath = os.path.join(os.path.dirname(os.path.dirname(__file__)),'training/')
+        #sentence=""
+        #for structure in structurestouse:
+         #   path = os.path.join(modelsPath, structure)
+          #  model = HappyTextToText(model_name=path)
+           # top_p_sampling_settings = TTSettings(do_sample=True, top_k=0, top_p=0.8, temperature=0.7,  min_length=20, max_length=20, early_stopping=True)
+            #input = "Add " + structure + "to this sentence: " + sentence
+            #sentence = model.generate_text(input, args=top_p_sampling_settings)
+        path = os.path.join(modelsPath, "ttt_inversion")
+        model = HappyTextToText(model_name=path)
+        top_p_sampling_settings = TTSettings(do_sample=True, top_k=0, top_p=0.8, temperature=0.7, max_length=30, early_stopping=True)
+        text="The waves were crashing on the shore."
+        input_text = "inversion: " + text + " </s>"
+        result = model.generate_text(input_text, args=top_p_sampling_settings)
+        return render(request, "cuentas/generate.html", {'user': request.user, 'result': result})
+    else:
+        return render(request, "cuentas/generate.html", {'user': request.user})
+
+@login_required
 def download(request):
     if request.method=="POST":
         sentence=request.POST.get('sentence')
@@ -279,8 +306,3 @@ def download(request):
                 f.write(results)
                 f.close()
             return FileResponse(open(filepath, 'rb'), as_attachment=True)
-
-
-            
-
-

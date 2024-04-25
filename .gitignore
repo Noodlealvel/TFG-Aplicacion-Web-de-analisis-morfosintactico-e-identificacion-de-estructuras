@@ -4,3 +4,4 @@ training/embedding/model.safetensors
 training/fronting/model.safetensors
 training/juxtaposition/model.safetensors
 training/inversion/model.safetensors
+training/ttt_inversion/model.safetensors
