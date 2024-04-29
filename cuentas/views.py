@@ -1,13 +1,11 @@
 import os
-import re
 from datetime import datetime
 from turtle import end_fill
 from django.shortcuts import redirect, render
 from django.http import FileResponse
 from django.contrib.auth.models import User
 from cuentas.models import Analysis
-from django.contrib.auth import authenticate, login
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
@@ -22,11 +20,6 @@ if spacy.__version__.startswith('2'):
     nlp.add_pipe(benepar.BeneparComponent("benepar_en3"))
 else:
     nlp.add_pipe("benepar", config={"model": "benepar_en3"})
-#from nltk import pos_tag, word_tokenize
-#from nltk.corpus import wordnet2021
-#from nltk import CFG
-#from nltk.ccg.chart import CCGChartParser
-# Create your views here.
         
 def home(request):
     if request.user.is_authenticated:
@@ -85,7 +78,6 @@ def signin(request):
 
         if user is not None:
             login(request, user)
-            #return render (request, "cuentas/index.html", {'user': request.user})
             return redirect("analyze")
         else:
             messages.error(request, "Invalid credentials.")
@@ -156,11 +148,6 @@ def log_out(request):
     logout(request)
     return render(request, "cuentas/index.html")
 
-def cleanfilename(name):
-    pattern = r'[<>:"/\\|?*]'
-    clean = re.sub(pattern, '', name)
-    return clean
-
 @login_required
 def analyze(request):
     if request.method=='POST':
@@ -180,20 +167,11 @@ def analyze(request):
 
         doc = nlp(sentence)
         if request.POST.get('analyze')=="syntactic":
-            #sent = list(doc.sents)[0]
-            
-            #sent = list(doc.sents)[0]
-            #displacy.serve(doc, style="dep")
-            #for token in doc:
-            #   print(token.text, token.pos_, token.dep_)
-            #constituency=sent._.parse_string
-            #print(constituency)
-
             tree=ct.ConstituentTree(sentence, nlp)
-            imagepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + "/" + cleanfilename(sentence) + ".svg")
+            imagepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + "/resultsSyntactic.svg")
             tree.export_tree(destination_filepath=imagepath, verbose=True)
-            resultspath= "/media/" + request.user.get_username() + "/" + cleanfilename(sentence) + ".svg"
-            analysis = Analysis.objects.create(username=request.user.get_username(), sentence=sentence, type="syntactic", resultSyntactic=resultspath, date=datetime.now())
+            resultspath= "/media/" + request.user.get_username() + "/resultsSyntactic.svg"
+            analysis = Analysis.objects.create(username=request.user.get_username(), sentence=sentence, type="syntactic", date=datetime.now())
             analysis.save()
             history = Analysis.objects.filter(username=request.user.get_username())
             return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "syntactic", 'resultspath': resultspath, 'positives': positives, 'history': history})
@@ -201,11 +179,9 @@ def analyze(request):
             morph=[]
             results=""
             for token in doc:
-                #expl=spacy.explain(token.tag_)
                 morph.append(str(token.morph))
-                results+=token.text + ": " + token.pos_ + ". " + str(token.morph) + "\n"
 
-            analysis = Analysis.objects.create(username=request.user.get_username(), sentence=sentence, type="morphologic", resultMorphologic=results, date=datetime.now())
+            analysis = Analysis.objects.create(username=request.user.get_username(), sentence=sentence, type="morphologic", date=datetime.now())
             analysis.save()
             history = Analysis.objects.filter(username=request.user.get_username())
             return render(request, "cuentas/analyze.html", {'user': request.user, 'doc': doc, 'sentence': sentence, 'method': "morphologic", 'morph': morph, 'positives': positives, 'history': history})
@@ -262,15 +238,15 @@ def tone(request):
         return render(request, "cuentas/tone.html", {'user': request.user})
 
 @login_required
-def generate(request):
-    if request.method=="POST":
-        structures = ["ellipsis", "juxtaposition", "fronting", "inversion", "embedding"]
-        structurestouse=[]
-        for structure in structures:
-            print (request.POST.get(structure))
-            if request.POST.get(structure)==structure:
-                structurestouse.append(request.POST.get(structure))
-        modelsPath = os.path.join(os.path.dirname(os.path.dirname(__file__)),'training/')
+#def generate(request):
+    #if request.method=="POST":
+     #   structures = ["ellipsis", "juxtaposition", "fronting", "inversion", "embedding"]
+      #  structurestouse=[]
+       # for structure in structures:
+        #    print (request.POST.get(structure))
+         #   if request.POST.get(structure)==structure:
+          #      structurestouse.append(request.POST.get(structure))
+        #modelsPath = os.path.join(os.path.dirname(os.path.dirname(__file__)),'training/')
         #sentence=""
         #for structure in structurestouse:
          #   path = os.path.join(modelsPath, structure)
@@ -278,15 +254,15 @@ def generate(request):
            # top_p_sampling_settings = TTSettings(do_sample=True, top_k=0, top_p=0.8, temperature=0.7,  min_length=20, max_length=20, early_stopping=True)
             #input = "Add " + structure + "to this sentence: " + sentence
             #sentence = model.generate_text(input, args=top_p_sampling_settings)
-        path = os.path.join(modelsPath, "ttt_inversion")
-        model = HappyTextToText(model_name=path)
-        top_p_sampling_settings = TTSettings(do_sample=True, top_k=0, top_p=0.8, temperature=0.7, max_length=30, early_stopping=True)
-        text="The waves were crashing on the shore."
-        input_text = "inversion: " + text + " </s>"
-        result = model.generate_text(input_text, args=top_p_sampling_settings)
-        return render(request, "cuentas/generate.html", {'user': request.user, 'result': result})
-    else:
-        return render(request, "cuentas/generate.html", {'user': request.user})
+        #path = os.path.join(modelsPath, "ttt_inversion")
+        #model = HappyTextToText(model_name=path)
+        #top_p_sampling_settings = TTSettings(do_sample=True, top_k=0, top_p=0.8, temperature=0.7, max_length=30, early_stopping=True)
+        #text="The waves were crashing on the shore."
+        #input_text = "inversion: " + text + " </s>"
+        #result = model.generate_text(input_text, args=top_p_sampling_settings)
+        #return render(request, "cuentas/generate.html", {'user': request.user, 'result': result})
+    #else:
+     #   return render(request, "cuentas/generate.html", {'user': request.user})
 
 @login_required
 def download(request):
@@ -295,7 +271,7 @@ def download(request):
         format=request.POST.get('format')
         if request.POST.get('method')=="syntactic":
             tree=ct.ConstituentTree(sentence, nlp)
-            filepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + "/" + cleanfilename(sentence) + format)
+            filepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + "/resultsSyntactic." + format)
             if format=="pdf":
                 wkhtmltopdf=os.path.join(os.path.dirname(os.path.dirname(__file__)), settings.WKHTMLTOPDF_PATH)
                 tree.export_tree(destination_filepath=filepath, wkhtmltopdf_bin_filepath=wkhtmltopdf, verbose=True)
@@ -307,9 +283,8 @@ def download(request):
             results=""
             for token in doc:
                 results+=token.text + ": " + token.pos_ + ". " + str(token.morph) + "\n"
-            filepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + "/" + cleanfilename(sentence) + "Morpho"+ format)
+            filepath=os.path.join(os.path.dirname(os.path.dirname(__file__)),'static/media/' + request.user.get_username() + "/resultsMorphologic." + format)
             if format=="pdf":
-                #The quick brown fox jumps over the lazy dog
                 canvas = Canvas(filepath)
                 t = canvas.beginText()
                 t.setTextOrigin(50, 750)

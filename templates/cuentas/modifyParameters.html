@@ -11,13 +11,9 @@
   <link rel="icon" href="favicon.png">
 </head>
 <body>
-  <header>
-    <div class="m-0 row justify-content-center">
-        <div class="col-auto p-5 text-center">
-            <h1 class="display-1">Sentence analyzer</h1>
-        </div>
-      </div>
-  </header>
+    <div class="top">
+        {% include "cuentas/menu.html" %}
+    </div>
 
   {% if verified is None %}
     <div class="m-0 row justify-content-center">
@@ -109,6 +105,7 @@
                     }
                 }
                 </script>
+            <br>
         </div>
     </div>
     

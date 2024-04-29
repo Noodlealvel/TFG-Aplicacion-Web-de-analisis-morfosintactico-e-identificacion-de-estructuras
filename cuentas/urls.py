@@ -11,6 +11,6 @@ urlpatterns = [
     path('analyze', views.analyze, name="analyze"),
     path('correct', views.correct, name="correct"),
     path('tone', views.tone, name="tone"),
-    path('generate', views.generate, name="generate"),
+    #path('generate', views.generate, name="generate"),
     path('download', views.download, name="download"),
 ]

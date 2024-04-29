@@ -57,7 +57,7 @@
         <div class="row-auto">
           <div class="col-auto">
             <h2 style="text-align:center">Sentence analysis</h2>
-            <textarea wrap="off" name="sentence" value="sentence"></textarea>
+            <textarea wrap="off" name="sentence" value="sentence" required></textarea>
           </div>
         </div>
         <div class="row d-flex justify-content-center">
@@ -75,23 +75,8 @@
       <div class="row">
         <div class="col-12">
           {% if method == "syntactic" %}
-          <!--<p style="word-spacing:5rem">
-            {% for token in doc %}
-            {{ token.pos_ }}
-            {% endfor %}
-          </p>
-
-          <h2 style="word-spacing:5rem">{{ sentence }}</h2>
-
-          <p style="word-spacing:5rem">
-            {% for token in doc %}
-            {{ token.dep_ }}
-            {% endfor %}
-          </p>
-          <p style="padding:2vh">{{ constituency }}</p>-->
+        
           <img src="{% static resultspath %}" width="600px" height="600px" style="margin-left:auto; margin-right:auto;">
-
-          <!--{{ ell }}-->
 
           {% elif method == "morphologic" %}
           {% for token in doc %}
@@ -162,6 +147,8 @@
                 This is commonly seen in sentences where one idea is nested within another, often through
                 the use of subordinate clauses or phrases. Examples:<br>
                 <ul>
+                  <li>Wendy said that Lydia sang.</li>
+                  <li>Mary, who is an avid reader, recommended a captivating novel.</li>
                   {% endif %}
                   {% endfor %}
                 </ul>
@@ -188,40 +175,10 @@
               structures are really present.<br>
               <form action="/correct" method="POST">
                 {% csrf_token %}
-                <textarea wrap="off" name="correctedsentence" value="correctedsentence"></textarea>
+                <textarea wrap="off" name="correctedsentence" value="correctedsentence" required></textarea>
                 {% for structure in positives %}
                 <input type="hidden" name="{{ structure }}" value="{{ structure }}">
                 {% endfor %}
-                <!--<div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" value="ellipsis" name="ellipsis">
-                      <label class="form-check-label" for="ellipsis">
-                        Ellipsis
-                      </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" value="juxtaposition" name="juxtaposition">
-                      <label class="form-check-label" for="juxtaposition">
-                        Juxtaposition
-                      </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" value="fronting" name="fronting">
-                      <label class="form-check-label" for="fronting">
-                        Fronting
-                      </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" value="inversion" name="inversion">
-                      <label class="form-check-label" for="inversion">
-                        Inversion
-                      </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" value="embedding" name="embedding">
-                      <label class="form-check-label" for="embedding">
-                        Embedding
-                      </label>
-                    </div>-->
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-success">Submit</button>
@@ -242,7 +199,9 @@
               <select id="format" name="format">
                 <option value="pdf">Pdf</option>
                 <option value="txt">Txt</option>
+                {% if method == "morphologic" %}
                 <option value="xls">Xls</option>
+                {% endif %}
               </select>
               {% if method == "syntactic" %}
               <input type="hidden" name="method" value="syntactic">
